@@ -159,8 +159,9 @@ To get starts let's add this to our `Cargo.toml`:
 crate-type = ['cdylib']
 
 [dependencies]
-wasm-bindgen = "0.2.54"
+wasm-bindgen = "=0.2.55"
 ```
+> **Note**: This is currently the most recent supported version of wasm-bindgen for wasmtime. The 0.2.56 version and later emit a version of the interface types format that wasmtime doesn't support yet (but we are working on it).
 
 Using this crate, we can then update our `src/lib.rs` with the following:
 
@@ -191,7 +192,7 @@ and we have our new wasm binary!
 We can then test out support for this with the CLI:
 
 ```sh
-$ wasmtime --invoke greet ./target/wasm32-wasi/release/hello_world.wasm "wasmtime CLI"
+$ wasmtime --enable-multi-value --invoke greet ./target/wasm32-wasi/release/hello_world.wasm "wasmtime CLI"
 warning: using `--invoke` with a function that takes arguments is experimental and may break in the future
 warning: using `--invoke` with a function that returns values is experimental and may break in the future
 Hello, wasmtime CLI!
